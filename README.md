@@ -33,8 +33,8 @@ const { launch } = require('puptron');
 This method launches the instrumented application. It has the following arguments:
 * `args` _Array&lt;String&gt;_: the arguments to be passed to the Electron application. Think: the arguments that you use to launch the application from the command line. Example: `['.']`
 * `[options]` _Object_: options for the Electron process being launched. This object and all its properties are optional. These include:
-  ** `cwd` _String_: The current working directory for the application.
-  ** `env` _Object_: A key-value pair of environment variables to included when launching the process.
+  * `[cwd]` _String_: The current working directory for the application.
+  * `[env]` _Object_: A key-value pair of environment variables to included when launching the process.
 
 This method will return a promise that resolved to an instance of the Puppeteer [`browser`](https://pptr.dev/#?product=Puppeteer&version=v5.2.1&show=api-class-browser) object.
 
