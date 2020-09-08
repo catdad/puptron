@@ -1,7 +1,7 @@
 {
   "name": "puptron",
   "version": "0.0.1",
-  "description": "puptron",
+  "description": "automate your Electron application with Puppeteer",
   "main": "src/puptron.js",
   "scripts": {
     "test": "mocha --timeout 6000 --slow 0 test/**/*.test.js"
