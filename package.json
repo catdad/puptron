@@ -10,6 +10,9 @@
     "type": "git",
     "url": "git+https://github.com/catdad/puptron.git"
   },
+  "files": [
+    "src"
+  ],
   "keywords": [
     "electron",
     "automation",
