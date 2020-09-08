@@ -6,30 +6,44 @@ on:
 jobs:
   windows:
     runs-on: windows-latest
+    strategy:
+      matrix:
+        node: [10, 14]
+        electron: [8, 10]
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
-          node-version: 14.x
+          node-version: ${{ matrix.node }}
       - run: npm install
+      - run: npm install electron@${{ matrix.electron }}
       - run: npm test
   macos:
     runs-on: macos-latest
+    strategy:
+      matrix:
+        node: [12, 14]
+        electron: [9, 10]
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
-          node-version: 14.x
+          node-version: ${{ matrix.node }}
       - run: npm install
+      - run: npm install electron@${{ matrix.electron }}
       - run: npm test
   linux:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [10, 12]
+        electron: [8, 9]
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
-          node-version: 14.x
-      - run: sudo apt-get install xvfb
+          node-version: ${{ matrix.node }}
       - run: npm install
+      - run: npm install electron@${{ matrix.electron }}
       - name: Run npm test
         run: xvfb-run --auto-servernum npm test
