@@ -26,5 +26,16 @@
   "homepage": "https://github.com/catdad/puptron#readme",
   "devDependencies": {
     "eslint": "^5.16.0"
+  },
+  "dependencies": {
+    "fs-extra": "^9.0.1",
+    "get-port": "^5.1.1",
+    "node-fetch": "^2.6.1",
+    "puppeteer-core": "^5.2.1",
+    "tempy": "^0.6.0",
+    "wait-for-throwable": "^1.0.1"
+  },
+  "peerDependencies": {
+    "electron": ">=8.0.0"
   }
 }
