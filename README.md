@@ -56,9 +56,11 @@ describe('my application', () => {
 
   beforeEach(async () => {
     app = await launch(['.'], {
-      cwd: path.resolve(__dirname, '..'), // assuming your tests are in /test
+      // assuming your app is at the root / and your tests are in /test
+      cwd: path.resolve(__dirname, '..'),
       env: {
-        MY_APP_CONFIG: path.resolve('/path/to/custom/config') // some variable your app uses
+        // some variable your app uses, like a custom test config file
+        MY_APP_CONFIG: path.resolve('/path/to/custom/config')
       }
     });
   });
