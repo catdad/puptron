@@ -38,7 +38,7 @@ This method launches the instrumented application. It has the following argument
 
 This method will return a promise that resolved to an instance of the Puppeteer [`browser`](https://pptr.dev/#?product=Puppeteer&version=v5.2.1&show=api-class-browser) object.
 
-> _Note that some method, like `newPage` may not work. Use your best judgement on what you realisticaly expect a particular method to do in Electron._
+> _Note that some method, such as `newPage`, may not work. Use your best judgement on what you realisticaly expect a particular method to do in Electron._
 
 ## Examples
 
