@@ -1,17 +1,19 @@
 const { spawn } = require('child_process');
+const path = require('path');
 
 const electron = require('electron');
 const waitForThrowable = require('wait-for-throwable');
 const fetch = require('node-fetch');
 const getPort = require('get-port');
 const fs = require('fs-extra');
-const tempy = require('tempy');
+const tempDir = require('temp-dir');
 
 const once = async (ev, name) => await new Promise(r => ev.once(name, v => r(v)));
+const tmp = () => path.resolve(tempDir, `puptron-${Math.random().toString(36).slice(2)}-user-data`);
 
 module.exports = (args, options) => {
   let app, stdchunks = [];
-  const userData = tempy.directory();
+  const userData = tmp();
 
   const getLogs = () => [].concat(stdchunks).map(c => c.toString());
 
