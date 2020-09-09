@@ -29,6 +29,7 @@
   "homepage": "https://github.com/catdad/puptron#readme",
   "devDependencies": {
     "chai": "^4.2.0",
+    "electron": "^10.1.1",
     "eslint": "^5.16.0",
     "mocha": "^8.1.3"
   },
