@@ -4,7 +4,7 @@
   "description": "automate your Electron application with Puppeteer",
   "main": "src/puptron.js",
   "scripts": {
-    "test": "mocha --timeout 6000 --slow 0 test/**/*.test.js"
+    "test": "mocha --timeout 10000 --slow 0 test/**/*.test.js"
   },
   "repository": {
     "type": "git",
