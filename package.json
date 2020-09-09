@@ -42,5 +42,9 @@
   },
   "peerDependencies": {
     "electron": ">=8.0.0"
+  },
+  "funding": {
+    "type": "donate",
+    "url": "https://www.paypal.me/kirilvatev"
   }
 }
