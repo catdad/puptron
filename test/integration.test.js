@@ -1,4 +1,5 @@
 const http = require('http');
+const path = require('path');
 
 const { expect } = require('chai');
 const getPort = require('get-port');
@@ -19,7 +20,7 @@ describe('launch', () => {
 
   describe('opening a web page', () => {
     let port, server;
-    const text = 'pineapples';
+    const text = `pineapples ${Math.random()}`;
 
     beforeEach(async () => {
       port = await getPort();
@@ -43,6 +44,30 @@ describe('launch', () => {
 
     it('launches and allows inspecting the page', async () => {
       browser = await launch([`http://localhost:${port}`]);
+
+      const pages = await browser.pages();
+
+      expect(pages).to.be.an('array').and.to.have.lengthOf(1);
+
+      const page = pages[0];
+
+      const $p = await page.waitFor('p');
+      const actualText = await $p.evaluate(p => p.innerText);
+
+      expect(actualText).to.equal(text);
+    });
+  });
+
+  describe('opening a sample application', () => {
+    const text = `gouda ${Math.random()}`;
+
+    it('launches and allows inspecting the page', async () => {
+      browser = await launch(['.'], {
+        cwd: path.resolve(__dirname, '../fixtures'),
+        env: {
+          TEST_TEXT: text
+        }
+      });
 
       const pages = await browser.pages();
 
