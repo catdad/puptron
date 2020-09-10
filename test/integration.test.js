@@ -63,7 +63,7 @@ describe('launch', () => {
 
     it('launches and allows inspecting the page', async () => {
       browser = await launch(['.'], {
-        cwd: path.resolve(__dirname, '../fixtures'),
+        cwd: path.resolve(__dirname, '../fixture'),
         env: {
           TEST_TEXT: text
         }
