@@ -3,6 +3,7 @@ const path = require('path');
 
 const { expect } = require('chai');
 const getPort = require('get-port');
+const waitForThrowable = require('wait-for-throwable');
 
 const { launch } = require('../');
 
@@ -59,13 +60,14 @@ describe('launch', () => {
   });
 
   describe('opening a sample application', () => {
-    const text = `gouda ${Math.random()}`;
+    const varText = `gouda ${Math.random()}`;
+    const argText = `jarlsberg ${Math.random()}`;
 
     it('launches and allows inspecting the page', async () => {
-      browser = await launch(['.'], {
+      browser = await launch(['.', argText], {
         cwd: path.resolve(__dirname, '../fixture'),
         env: {
-          TEST_TEXT: text
+          TEST_TEXT: varText
         }
       });
 
@@ -75,10 +77,16 @@ describe('launch', () => {
 
       const page = pages[0];
 
-      const $p = await page.waitFor('p');
-      const actualText = await $p.evaluate(p => p.innerText);
+      const [$env, $arg] = await waitForThrowable(async () => {
+        const $ps = await page.$$('p');
 
-      expect(actualText).to.equal(text);
+        expect($ps).to.be.an('array').and.to.have.lengthOf(2);
+
+        return $ps;
+      });
+
+      expect(await $env.evaluate(p => p.innerText)).to.equal(varText);
+      expect(await $arg.evaluate(p => p.innerText)).to.equal(argText);
     });
   });
 });

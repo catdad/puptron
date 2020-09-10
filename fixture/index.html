@@ -19,10 +19,20 @@
 </head>
 <body>
   <script>
-    const p = document.createElement('p');
-    p.innerText = unescape((location.hash || `#I'm a pizza`).slice(1));
+    const createPara = text => {
+      const p = document.createElement('p');
+      p.innerText = text;
 
-    document.body.appendChild(p);
+      document.body.appendChild(p);
+    };
+
+    const query = location.search.slice(1)
+      .split('&')
+      .map(str => str.split('='))
+      .reduce((q, [key, ...val]) => Object.assign(q, { [key]: val.join('=') }), {});
+
+    createPara(unescape(query.env));
+    createPara(unescape(query.arg));
   </script>
 </body>
 </html>

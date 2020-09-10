@@ -5,8 +5,11 @@ const { app, BrowserWindow } = require('electron');
 let mainWindow;
 
 function createWindow () {
+  const env = process.env.TEST_TEXT || '';
+  const arg = process.argv.slice(-1)[0] || '';
+
   mainWindow = new BrowserWindow({width: 400, height: 400});
-  mainWindow.loadURL(`file://${__dirname}/index.html#${process.env.TEST_TEXT || ''}`);
+  mainWindow.loadURL(`file://${__dirname}/index.html?env=${env}&arg=${arg}`);
 
   mainWindow.on('closed', () => {
     mainWindow = null;
