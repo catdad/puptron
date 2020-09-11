@@ -52,7 +52,7 @@ describe('launch', () => {
 
       const page = pages[0];
 
-      const $p = await page.waitFor('p');
+      const $p = await page.waitForSelector('p');
       const actualText = await $p.evaluate(p => p.innerText);
 
       expect(actualText).to.equal(text);
