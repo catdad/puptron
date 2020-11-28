@@ -11,12 +11,12 @@ const launch = async (args, options = {}) => {
     const { browserWSEndpoint } = await startElectron();
     browser = (await startPuppeteer({ browserWSEndpoint })).browser;
   } catch (err) {
-    await stopPuppeteer();
-    await stopElectron();
-
     const error = new Error('failed to start the application');
     error._raw = err;
     error._logs = getLogs();
+
+    await stopPuppeteer();
+    await stopElectron();
 
     throw error;
   }
