@@ -5,8 +5,21 @@ const launch = async (args, options = {}) => {
   const { start: startElectron, stop: stopElectron, getLogs } = electron(args, options);
   const { start: startPuppeteer, stop: stopPuppeteer } = puppeteer();
 
-  const { browserWSEndpoint } = await startElectron();
-  const { browser } = await startPuppeteer({ browserWSEndpoint });
+  let browser;
+
+  try {
+    const { browserWSEndpoint } = await startElectron();
+    browser = (await startPuppeteer({ browserWSEndpoint })).browser;
+  } catch (err) {
+    await stopPuppeteer();
+    await stopElectron();
+
+    const error = new Error('failed to start the application');
+    error._raw = err;
+    error._logs = getLogs();
+
+    throw error;
+  }
 
   return new Proxy(browser, {
     get: (target, key, receiver) => {
