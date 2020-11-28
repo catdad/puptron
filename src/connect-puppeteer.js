@@ -28,6 +28,7 @@ module.exports = () => {
       const page = pages[0];
 
       if (!page) {
+        await stopBrowser();
         throw new Error('did not find a renderer when connecting to app');
       }
     });
