@@ -1,12 +1,28 @@
 const electron = require('./electron-process.js');
 const puppeteer = require('./connect-puppeteer.js');
 
-const launch = async (args, options = {}) => {
-  const { start: startElectron, stop: stopElectron, getLogs } = electron(args, options);
-  const { start: startPuppeteer, stop: stopPuppeteer } = puppeteer();
+const launch = async (args, { env, cwd, rendererInterval, rendererTimeout } = {}) => {
+  const { start: startElectron, stop: stopElectron, getLogs } = electron(args, { env, cwd });
+  const { start: startPuppeteer, stop: stopPuppeteer } = puppeteer({
+    rendererInterval,
+    rendererTimeout
+  });
 
-  const { browserWSEndpoint } = await startElectron();
-  const { browser } = await startPuppeteer({ browserWSEndpoint });
+  let browser;
+
+  try {
+    const { browserWSEndpoint } = await startElectron();
+    browser = (await startPuppeteer({ browserWSEndpoint })).browser;
+  } catch (err) {
+    const error = new Error('failed to start the application');
+    error._raw = err;
+    error._logs = getLogs();
+
+    await stopPuppeteer();
+    await stopElectron();
+
+    throw error;
+  }
 
   return new Proxy(browser, {
     get: (target, key, receiver) => {

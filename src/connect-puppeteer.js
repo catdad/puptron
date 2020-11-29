@@ -1,7 +1,7 @@
 const puppeteer = require('puppeteer-core');
 const waitForThrowable = require('wait-for-throwable');
 
-module.exports = () => {
+module.exports = ({ rendererInterval = 5, rendererTimeout = 2000 }) => {
   let browser, stopped = false;
 
   const stopBrowser = async () => {
@@ -25,13 +25,12 @@ module.exports = () => {
 
       browser = await puppeteer.connect({ browserWSEndpoint, dumpio: true });
       const pages = await browser.pages();
-      const page = pages[0];
 
-      if (!page) {
+      if (pages.length < 1) {
         await stopBrowser();
         throw new Error('did not find a renderer when connecting to app');
       }
-    });
+    }, { interval: rendererInterval, total: rendererTimeout });
 
     return { browser };
   };
