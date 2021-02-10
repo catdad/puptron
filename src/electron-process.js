@@ -11,7 +11,7 @@ const tempDir = require('temp-dir');
 const once = async (ev, name) => await new Promise(r => ev.once(name, v => r(v)));
 const tmp = () => path.resolve(tempDir, `puptron-${Math.random().toString(36).slice(2)}-user-data`);
 
-module.exports = (args, options) => {
+module.exports = (args, { appPath = electron, env = {}, ...options }) => {
   let app, stdchunks = [];
   const userData = tmp();
 
@@ -38,7 +38,7 @@ module.exports = (args, options) => {
 
       const port = await getPort();
 
-      app = spawn(electron, [
+      app = spawn(appPath, [
         `--remote-debugging-port=${port}`,
         '--enable-logging',
         '-v=0',
@@ -50,7 +50,7 @@ module.exports = (args, options) => {
         env: {
           // using all existing env variables is required for Linux
           ...process.env,
-          ...options.env
+          ...env
         }
       });
 
