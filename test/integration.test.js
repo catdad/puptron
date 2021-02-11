@@ -7,17 +7,17 @@ const waitForThrowable = require('wait-for-throwable');
 
 const { launch } = require('../');
 
-const fixtureOs = ({
-  win32: 'win',
-  darwin: 'macos',
-  linux: 'linux'
-})[process.platform];
 const fixturePkg = require('../fixture/package.json');
+const fixtureUnpacked = ({
+  win32: 'win-unpacked',
+  darwin: 'mac',
+  linux: 'linux-unpacked'
+})[process.platform];
 const fixtureExec = path.resolve(
   __dirname,
   '../temp',
-  `${fixtureOs}-unpacked`,
-  `${fixturePkg.productName}${fixtureOs === 'win' ? '.exe': ''}`
+  fixtureUnpacked,
+  `${fixturePkg.productName}${process.platform === 'win32' ? '.exe': ''}`
 );
 
 describe('launch', () => {
