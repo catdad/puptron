@@ -1,5 +1,6 @@
 {
   "name": "fixture",
-  "productName": "I am a Test Fixture",
-  "main": "main.js"
+  "productName": "Test Fixture",
+  "main": "main.js",
+  "version": "1.2.3"
 }
