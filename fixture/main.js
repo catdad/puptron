@@ -9,7 +9,7 @@ function createWindow () {
   const arg = process.argv.slice(-1)[0] || '';
 
   mainWindow = new BrowserWindow({width: 400, height: 400});
-  mainWindow.loadURL(`file://${__dirname}/index.html?env=${env}&arg=${arg}`);
+  mainWindow.loadURL(`file://${__dirname}/index.html?env=${env}&arg=${arg}&process=${process.execPath}`);
 
   mainWindow.on('closed', () => {
     mainWindow = null;

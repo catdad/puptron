@@ -7,6 +7,19 @@ const waitForThrowable = require('wait-for-throwable');
 
 const { launch } = require('../');
 
+const fixtureOs = ({
+  win32: 'win',
+  darwin: 'macos',
+  linux: 'linux'
+})[process.platform];
+const fixturePkg = require('../fixture/package.json');
+const fixtureExec = path.resolve(
+  __dirname,
+  '../temp',
+  `${fixtureOs}-unpacked`,
+  `${fixturePkg.productName}${fixtureOs === 'win' ? '.exe': ''}`
+);
+
 describe('launch', () => {
   let browser;
 
@@ -59,34 +72,49 @@ describe('launch', () => {
     });
   });
 
-  describe('opening a sample application', () => {
-    const varText = `gouda ${Math.random()}`;
-    const argText = `jarlsberg ${Math.random()}`;
+  for (const { name, execPath, opts } of [{
+    name: 'opening a sample application from source code',
+    execPath: require('electron'),
+    opts: {}
+  }, {
+    name: 'opening a sample built application',
+    execPath: fixtureExec,
+    opts: {
+      appPath: fixtureExec
+    }
+  }]) {
+    describe(name, () => {
+      const varText = `gouda ${Math.random()}`;
+      const argText = `jarlsberg ${Math.random()}`;
 
-    it('launches and allows inspecting the page', async () => {
-      browser = await launch(['.', argText], {
-        cwd: path.resolve(__dirname, '../fixture'),
-        env: {
-          TEST_TEXT: varText
-        }
+      it('launches and allows inspecting the page', async () => {
+        browser = await launch(['.', argText], {
+          cwd: path.resolve(__dirname, '../fixture'),
+          env: {
+            TEST_TEXT: varText
+          },
+          ...opts
+        });
+
+        const pages = await browser.pages();
+
+        expect(pages).to.be.an('array').and.to.have.lengthOf(1);
+
+        const page = pages[0];
+
+        const [$env, $arg, $execPath] = await waitForThrowable(async () => {
+          const $ps = await page.$$('p');
+
+          expect($ps).to.be.an('array').and.to.have.lengthOf(3);
+
+          return $ps;
+        });
+
+        expect(await $env.evaluate(p => p.innerText)).to.equal(varText);
+        expect(await $arg.evaluate(p => p.innerText)).to.equal(argText);
+        expect(await $execPath.evaluate(p => p.innerText)).to.equal(execPath);
       });
-
-      const pages = await browser.pages();
-
-      expect(pages).to.be.an('array').and.to.have.lengthOf(1);
-
-      const page = pages[0];
-
-      const [$env, $arg] = await waitForThrowable(async () => {
-        const $ps = await page.$$('p');
-
-        expect($ps).to.be.an('array').and.to.have.lengthOf(2);
-
-        return $ps;
-      });
-
-      expect(await $env.evaluate(p => p.innerText)).to.equal(varText);
-      expect(await $arg.evaluate(p => p.innerText)).to.equal(argText);
     });
-  });
+  }
+
 });
