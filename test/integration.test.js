@@ -67,17 +67,23 @@ describe('launch', () => {
     });
   });
 
-  for (const { name, execPath, opts } of [{
+  const appTests = [{
     name: 'opening a sample application from source code',
     execPath: require('electron'),
     opts: {}
-  }, {
-    name: 'opening a sample built application',
-    execPath: fixtureExec,
-    opts: {
-      appPath: fixtureExec
-    }
-  }]) {
+  }];
+
+  if (process.platform !== 'darwin') {
+    appTests.push({
+      name: 'opening a sample built application',
+      execPath: fixtureExec,
+      opts: {
+        appPath: fixtureExec
+      }
+    });
+  }
+
+  for (const { name, execPath, opts } of appTests) {
     describe(name, () => {
       const varText = `gouda ${Math.random()}`;
       const argText = `jarlsberg ${Math.random()}`;
@@ -111,5 +117,4 @@ describe('launch', () => {
       });
     });
   }
-
 });
