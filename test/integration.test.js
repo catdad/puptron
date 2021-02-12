@@ -78,7 +78,7 @@ describe('launch', () => {
       name: 'opening a sample built application',
       execPath: fixtureExec,
       opts: {
-        appPath: fixtureExec
+        execPath: fixtureExec
       }
     });
   }
