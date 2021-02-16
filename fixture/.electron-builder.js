@@ -2,8 +2,6 @@ const path = require('path');
 const { name, productName, version } = require('./package.json');
 const { version: electronVersion } = require('electron/package.json');
 
-const fileName = productName.replace(/\s/g, '');
-
 module.exports = {
   productName,
   electronVersion,
