@@ -4,10 +4,6 @@ const { version: electronVersion } = require('electron/package.json');
 
 const fileName = productName.replace(/\s/g, '');
 
-const windows = {
-
-};
-
 module.exports = {
   productName,
   electronVersion,
