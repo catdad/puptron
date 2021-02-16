@@ -1,8 +1,8 @@
 const electron = require('./electron-process.js');
 const puppeteer = require('./connect-puppeteer.js');
 
-const launch = async (args, { env, cwd, rendererInterval, rendererTimeout } = {}) => {
-  const { start: startElectron, stop: stopElectron, getLogs } = electron(args, { env, cwd });
+const launch = async (args, { execPath, env, cwd, rendererInterval, rendererTimeout } = {}) => {
+  const { start: startElectron, stop: stopElectron, getLogs } = electron(args, { execPath, env, cwd });
   const { start: startPuppeteer, stop: stopPuppeteer } = puppeteer({
     rendererInterval,
     rendererTimeout

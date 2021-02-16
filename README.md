@@ -37,6 +37,7 @@ This method launches the instrumented application. It has the following argument
   * `[env]` _Object_: A key-value pair of environment variables to included when launching the process. The default is all existing variables of the current process.
   * `[rendererTimeout]` _Number_: When connecting to the renderer process, the total amount of time, in milliseconds, to try to connect to the renderer. This can be useful for apps that are slow to start. Default is `2000`.
   * `[rendererInterval]` _Number_: When connecting to the renderer process, the amount of time, in milliseconds, to wait between retrying connecting. This can be useful for apps that are slow to start. Default is `5`.
+  * `[execPath]` _String_: The path to the electron executable that you wish to use to start the application. This is useful if you have a custom setup, or if you would like to test the production application after it has been built. Default is `require('electron')`.
 
 This method will return a promise that resolved to an instance of the Puppeteer [`browser`](https://pptr.dev/#?product=Puppeteer&version=v5.2.1&show=api-class-browser) object.
 
