@@ -84,7 +84,7 @@ module.exports = (args, { execPath = electron, env = {}, ...options }) => {
           throw new Error('devtools not listening yet');
         }
 
-        const res = await fetch(`http://localhost:${port}/json/version`);
+        const res = await fetch(`http://127.0.0.1:${port}/json/version`);
 
         if (!res.ok) {
           throw new Error(`BAD /json/version respose: ${res.status} "${res.statusText}"`);
@@ -92,6 +92,7 @@ module.exports = (args, { execPath = electron, env = {}, ...options }) => {
 
         const json = JSON.parse(await res.text());
 
+        // technically, this is the same URL that we found when in the logs above
         return json.webSocketDebuggerUrl;
       }, { total: 5000 });
     }, { count: 3, total: Infinity });
