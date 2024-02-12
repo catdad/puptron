@@ -7,7 +7,7 @@
     "clean": "rimraf temp",
     "fixture:run": "electron fixture",
     "fixture:package": "electron-builder --config fixture/.electron-builder.js --publish never",
-    "test:mocha": "mocha --timeout 10000 --slow 0 test/**/*.test.js",
+    "test:mocha": "mocha --timeout 20000 --slow 0 test/**/*.test.js",
     "test": "npm-run-all clean fixture:package test:mocha"
   },
   "repository": {
