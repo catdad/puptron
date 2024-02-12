@@ -14,7 +14,7 @@ const launch = async (args, { execPath, env, cwd, rendererInterval, rendererTime
     const { browserWSEndpoint } = await startElectron();
     browser = (await startPuppeteer({ browserWSEndpoint })).browser;
   } catch (err) {
-    const error = new Error('failed to start the application');
+    const error = new Error(`failed to start the application: ${err.message}`);
     error._raw = err;
     error._logs = getLogs();
 
