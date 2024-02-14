@@ -9,10 +9,11 @@ env:
 jobs:
   windows:
     runs-on: windows-latest
+    name: windows, node ${{ matrix.node }}, electron ${{ matrix.electron }}
     strategy:
       matrix:
         node: [14]
-        electron: [8, 10]
+        electron: [20, 18]
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
@@ -23,10 +24,11 @@ jobs:
       - run: npm test
   macos:
     runs-on: macos-latest
+    name: macos, node ${{ matrix.node }}, electron ${{ matrix.electron }}
     strategy:
       matrix:
-        node: [12]
-        electron: [9, 10]
+        node: [16]
+        electron: [24, 22]
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
@@ -37,10 +39,11 @@ jobs:
       - run: npm test
   linux:
     runs-on: ubuntu-latest
+    name: linux, node ${{ matrix.node }}, electron ${{ matrix.electron }}
     strategy:
       matrix:
-        node: [10]
-        electron: [8, 9]
+        node: [18]
+        electron: [28, 26]
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
