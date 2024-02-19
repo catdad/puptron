@@ -1,6 +1,6 @@
 {
   "name": "puptron",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "automate your Electron application with Puppeteer",
   "main": "src/puptron.js",
   "scripts": {
