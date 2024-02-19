@@ -23,7 +23,10 @@ module.exports = ({ rendererInterval = 5, rendererTimeout = 2000 }) => {
         await stopBrowser();
       }
 
-      browser = await puppeteer.connect({ browserWSEndpoint, dumpio: true });
+      // defaultViewport: null makes sure that puppeteer does not automatically override the viewport
+      // and allows the viewport to match the window size
+      // https://stackoverflow.com/questions/52553311/how-to-set-max-viewport-in-puppeteer
+      browser = await puppeteer.connect({ browserWSEndpoint, dumpio: true, defaultViewport: null });
       const pages = await browser.pages();
 
       if (pages.length < 1) {
