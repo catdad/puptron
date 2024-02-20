@@ -49,7 +49,7 @@
     "wait-for-throwable": "^1.0.1"
   },
   "peerDependencies": {
-    "electron": ">=18.0.0"
+    "electron": ">=18.0.0 <21.x || >=26.0.0"
   },
   "funding": {
     "type": "donate",

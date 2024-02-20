@@ -28,7 +28,7 @@ jobs:
     strategy:
       matrix:
         node: [20]
-        electron: [24, 22]
+        electron: [26, 27]
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
@@ -43,7 +43,7 @@ jobs:
     strategy:
       matrix:
         node: [20]
-        electron: [28, 26]
+        electron: [28, 29]
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
