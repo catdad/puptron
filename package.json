@@ -51,6 +51,9 @@
   "peerDependencies": {
     "electron": ">=18.0.0 <21.x || >=26.0.0"
   },
+  "engines": {
+    "node": ">=18"
+  },
   "funding": {
     "type": "donate",
     "url": "https://www.paypal.me/kirilvatev"
