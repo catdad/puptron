@@ -51,7 +51,8 @@ module.exports = (args, { execPath = electron, env = {}, ...options }) => {
           // using all existing env variables is required for Linux
           ...process.env,
           ...env
-        }
+        },
+        windowsHide: true
       });
 
       app.on('exit', code => {

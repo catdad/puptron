@@ -12,8 +12,8 @@ jobs:
     name: windows, node ${{ matrix.node }}, electron ${{ matrix.electron }}
     strategy:
       matrix:
-        node: [14]
-        electron: [20, 18]
+        node: [18]
+        electron: [14, 16]
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
@@ -27,8 +27,8 @@ jobs:
     name: macos, node ${{ matrix.node }}, electron ${{ matrix.electron }}
     strategy:
       matrix:
-        node: [16]
-        electron: [24, 22]
+        node: [20]
+        electron: [18, 20]
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
@@ -42,8 +42,8 @@ jobs:
     name: linux, node ${{ matrix.node }}, electron ${{ matrix.electron }}
     strategy:
       matrix:
-        node: [18]
-        electron: [28, 26]
+        node: [20]
+        electron: [26, 28, 29]
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1

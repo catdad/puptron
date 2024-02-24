@@ -24,27 +24,15 @@ const launch = async (args, { execPath, env, cwd, rendererInterval, rendererTime
     throw error;
   }
 
-  return new Proxy(browser, {
-    get: (target, key, receiver) => {
-      if (key === 'close') {
-        return async () => {
-          await stopPuppeteer();
-          await stopElectron();
-        };
+  return Object.defineProperties(browser, {
+    close: {
+      get: () => async () => {
+        await stopPuppeteer();
+        await stopElectron();
       }
-
-      if (key === 'getLogs') {
-        return () => getLogs();
-      }
-
-      return Reflect.get(target, key, receiver);
     },
-    set: (target, key, value, receiver) => {
-      if (['close', 'getLogs'].includes(key)) {
-        throw new Error(`cannot set read-only "${key}" property`);
-      }
-
-      Reflect.set(target, key, value, receiver);
+    getLogs: {
+      get: () => () => getLogs()
     }
   });
 };
